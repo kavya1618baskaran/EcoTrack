@@ -1,0 +1,352 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | EcoTrack</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #edf7ef;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 420px;
+            max-width: 100%;
+            background: white;
+            padding: 40px;
+            border-radius: 14px;
+            box-shadow: 0 5px 22px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            text-align: center;
+            font-size: 30px;
+            font-weight: bold;
+            color: #218c45;
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #176b3a;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #777;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #218c45;
+        }
+
+        .password-row {
+            display: flex;
+            gap: 7px;
+        }
+
+        .password-row input {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .show-btn {
+            padding: 0 10px;
+            border: 1px solid #ccc;
+            background: #f4f4f4;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 13px;
+            background: #218c45;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #176b3a;
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
+        #message {
+            text-align: center;
+            margin-top: 18px;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .links {
+            text-align: center;
+            margin-top: 25px;
+            line-height: 2;
+            color: #555;
+        }
+
+        a {
+            color: #218c45;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="logo">🌱 EcoTrack</div>
+
+    <h2>Welcome Back!</h2>
+
+    <p class="subtitle">Login to your EcoTrack account.</p>
+
+    <form id="loginForm">
+
+        <div class="form-group">
+            <label for="email">Email Address</label>
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter your registered email"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+
+            <div class="password-row">
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    required
+                >
+
+                <button
+                    type="button"
+                    class="show-btn"
+                    onclick="togglePassword()"
+                >Show</button>
+
+            </div>
+        </div>
+
+        <button type="submit" class="submit-btn" id="loginButton">
+            Login
+        </button>
+
+        <p id="message" role="status" aria-live="polite"></p>
+
+    </form>
+
+    <div class="links">
+        Don't have an account?
+        <a href="register.html">Register here</a>
+
+        <br>
+
+        <a href="index.html">← Back to Home</a>
+    </div>
+
+</div>
+
+<script>
+    // Show or hide password
+    function togglePassword() {
+        const password = document.getElementById("password");
+        const button = document.querySelector(".show-btn");
+
+        if (password.type === "password") {
+            password.type = "text";
+            button.textContent = "Hide";
+        } else {
+            password.type = "password";
+            button.textContent = "Show";
+        }
+    }
+
+    // Convert bytes into hexadecimal
+    function bytesToHex(bytes) {
+        return Array.from(bytes)
+            .map(byte => byte.toString(16).padStart(2, "0"))
+            .join("");
+    }
+
+    // Hash password using the same method as registration
+    async function hashPassword(password, salt) {
+        const encoder = new TextEncoder();
+
+        const key = await crypto.subtle.importKey(
+            "raw",
+            encoder.encode(password),
+            "PBKDF2",
+            false,
+            ["deriveBits"]
+        );
+
+        const hash = await crypto.subtle.deriveBits(
+            {
+                name: "PBKDF2",
+                salt: salt,
+                iterations: 100000,
+                hash: "SHA-256"
+            },
+            key,
+            256
+        );
+
+        return bytesToHex(new Uint8Array(hash));
+    }
+
+    // Login process
+    const loginForm = document.getElementById("loginForm");
+    const message = document.getElementById("message");
+    const loginButton = document.getElementById("loginButton");
+
+    loginForm.addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        message.textContent = "";
+        message.style.color = "red";
+
+        const email = document.getElementById("email").value.trim().toLowerCase();
+        const password = document.getElementById("password").value;
+
+        if (!window.crypto || !crypto.subtle) {
+            message.textContent =
+                "Secure password verification is unavailable. Please use Live Server.";
+            return;
+        }
+
+        loginButton.disabled = true;
+        loginButton.textContent = "Checking...";
+
+        try {
+            // Get registered users
+            const users = JSON.parse(
+                localStorage.getItem("ecotrackUsers") || "[]"
+            );
+
+            if (!Array.isArray(users)) {
+                throw new Error("Saved account data is invalid.");
+            }
+
+            // Find account
+            const user = users.find(
+                account => account.email === email
+            );
+
+            if (!user) {
+                message.textContent =
+                    "Account not found. Please register first.";
+                return;
+            }
+
+            // Check stored password information
+            if (!user.salt || !user.passwordHash) {
+                message.textContent =
+                    "This account has an old password format. Please register again.";
+                return;
+            }
+
+            // Verify password
+            const salt = new Uint8Array(user.salt);
+
+            const enteredPasswordHash = await hashPassword(
+                password,
+                salt
+            );
+
+            if (enteredPasswordHash !== user.passwordHash) {
+                message.textContent = "Incorrect password. Please try again.";
+                return;
+            }
+
+            // Create login session without exposing password data
+            const currentUser = {
+                id: user.id,
+                fullname: user.fullname,
+                email: user.email
+            };
+
+            sessionStorage.setItem(
+                "ecotrackCurrentUser",
+                JSON.stringify(currentUser)
+            );
+
+            message.style.color = "green";
+            message.textContent =
+                "Login successful! Welcome, " + user.fullname + ".";
+
+            console.log("Login successful:", user.email);
+
+        } catch (error) {
+            console.error("Login error:", error);
+
+            message.style.color = "red";
+            message.textContent =
+                error.message || "Login failed. Please try again.";
+
+        } finally {
+            loginButton.disabled = false;
+            loginButton.textContent = "Login";
+        }
+    });
+</script>
+
+</body>
+</html>

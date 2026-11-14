@@ -1,0 +1,429 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | EcoTrack</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #edf7ef;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 25px;
+        }
+
+        .container {
+            width: 440px;
+            max-width: 100%;
+            background: white;
+            padding: 35px;
+            border-radius: 14px;
+            box-shadow: 0 5px 22px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            text-align: center;
+            font-size: 30px;
+            font-weight: bold;
+            color: #218c45;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #176b3a;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #777;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #218c45;
+        }
+
+        .password-row {
+            display: flex;
+            gap: 7px;
+        }
+
+        .password-row input {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .show-btn {
+            padding: 0 10px;
+            border: 1px solid #ccc;
+            background: #f4f4f4;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .terms {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            margin: 18px 0;
+        }
+
+        .terms input {
+            width: auto;
+        }
+
+        .terms label {
+            margin: 0;
+            font-size: 13px;
+            font-weight: normal;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 13px;
+            background: #218c45;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #176b3a;
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
+        #message {
+            text-align: center;
+            margin-top: 15px;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .links {
+            text-align: center;
+            margin-top: 20px;
+            line-height: 2;
+            color: #555;
+        }
+
+        a {
+            color: #218c45;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="logo">🌱 EcoTrack</div>
+
+    <h2>Create Account</h2>
+
+    <p class="subtitle">Join us for a greener future!</p>
+
+    <form id="registerForm">
+
+        <div class="form-group">
+            <label for="fullname">Full Name</label>
+            <input
+                type="text"
+                id="fullname"
+                placeholder="Enter your full name"
+                minlength="3"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+
+            <div class="password-row">
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Minimum 8 characters"
+                    minlength="8"
+                    required
+                >
+
+                <button
+                    type="button"
+                    class="show-btn"
+                    onclick="togglePassword('password', this)"
+                >Show</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+
+            <div class="password-row">
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    placeholder="Re-enter password"
+                    required
+                >
+
+                <button
+                    type="button"
+                    class="show-btn"
+                    onclick="togglePassword('confirmPassword', this)"
+                >Show</button>
+            </div>
+        </div>
+
+        <div class="terms">
+            <input type="checkbox" id="terms" required>
+            <label for="terms">
+                I agree to the Terms and Conditions.
+            </label>
+        </div>
+
+        <button type="submit" class="submit-btn" id="registerButton">
+            Create Account
+        </button>
+
+        <p id="message" role="status" aria-live="polite"></p>
+
+    </form>
+
+    <div class="links">
+        Already have an account?
+        <a href="login.html">Login here</a>
+        <br>
+        <a href="index.html">← Back to Home</a>
+    </div>
+
+</div>
+
+<script>
+    // Show or hide password
+    function togglePassword(id, button) {
+        const field = document.getElementById(id);
+
+        if (field.type === "password") {
+            field.type = "text";
+            button.textContent = "Hide";
+        } else {
+            field.type = "password";
+            button.textContent = "Show";
+        }
+    }
+
+    // Convert a byte array into hexadecimal text
+    function bytesToHex(bytes) {
+        return Array.from(bytes)
+            .map(byte => byte.toString(16).padStart(2, "0"))
+            .join("");
+    }
+
+    // Hash password using PBKDF2
+    async function hashPassword(password, salt) {
+        const encoder = new TextEncoder();
+
+        const key = await crypto.subtle.importKey(
+            "raw",
+            encoder.encode(password),
+            "PBKDF2",
+            false,
+            ["deriveBits"]
+        );
+
+        const hash = await crypto.subtle.deriveBits(
+            {
+                name: "PBKDF2",
+                salt: salt,
+                iterations: 100000,
+                hash: "SHA-256"
+            },
+            key,
+            256
+        );
+
+        return bytesToHex(new Uint8Array(hash));
+    }
+
+    // Registration process
+    const registerForm = document.getElementById("registerForm");
+    const message = document.getElementById("message");
+    const registerButton = document.getElementById("registerButton");
+
+    registerForm.addEventListener("submit", async function(event) {
+        alert("Registration Successfully completed!");
+        event.preventDefault();
+
+        message.textContent = "";
+        message.style.color = "red";
+
+        const fullname = document.getElementById("fullname").value.trim();
+        const email = document.getElementById("email").value.trim().toLowerCase();
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+        const terms = document.getElementById("terms").checked;
+
+        if (fullname.length < 3) {
+            message.textContent = "Please enter a valid full name.";
+            return;
+        }
+
+        if (password.length < 8) {
+            message.textContent = "Password must have at least 8 characters.";
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            message.textContent = "Passwords do not match.";
+            return;
+        }
+
+        if (!terms) {
+            message.textContent = "Please accept the Terms and Conditions.";
+            return;
+        }
+
+        if (!window.crypto || !crypto.subtle) {
+            message.textContent =
+                "Secure password hashing is unavailable. Open this page using Live Server.";
+            return;
+        }
+
+        registerButton.disabled = true;
+        registerButton.textContent = "Creating Account...";
+
+        try {
+            // Read existing accounts
+            const users = JSON.parse(
+                localStorage.getItem("ecotrackUsers") || "[]"
+            );
+
+            if (!Array.isArray(users)) {
+                throw new Error("Saved user data is invalid.");
+            }
+
+            // Check duplicate email
+            const existingUser = users.find(
+                user => user.email === email
+            );
+
+            if (existingUser) {
+                message.textContent = "This email is already registered.";
+                return;
+            }
+
+            // Generate salt and password hash
+            const salt = crypto.getRandomValues(
+                new Uint8Array(16)
+            );
+
+            const passwordHash = await hashPassword(password, salt);
+
+            // Create account
+            const newUser = {
+                id: Date.now(),
+                fullname: fullname,
+                email: email,
+                passwordHash: passwordHash,
+                salt: Array.from(salt),
+                createdAt: new Date().toISOString()
+            };
+
+            users.push(newUser);
+
+            // Save account
+            localStorage.setItem(
+                "ecotrackUsers",
+                JSON.stringify(users)
+            );
+
+            // Verify saved account
+            const savedUsers = JSON.parse(
+                localStorage.getItem("ecotrackUsers") || "[]"
+            );
+
+            if (!savedUsers.some(user => user.email === email)) {
+                throw new Error("Account could not be verified in storage.");
+            }
+
+            message.style.color = "green";
+            message.textContent =
+                "Registration successful! Your account has been created.";
+
+            registerForm.reset();
+
+            console.log("Registration successful.");
+            console.log("Total saved users:", savedUsers.length);
+
+        } catch (error) {
+            console.error("Registration error:", error);
+
+            message.style.color = "red";
+            message.textContent =
+                error.message || "Registration failed. Please try again.";
+
+        } finally {
+            registerButton.disabled = false;
+            registerButton.textContent = "Create Account";
+        }
+    });
+</script>
+
+</body>
+</html>

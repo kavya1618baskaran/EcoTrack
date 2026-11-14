@@ -1,0 +1,1001 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>EcoTrack | Smart Environmental Sustainability Tracker</title>
+
+<style>
+
+/* GENERAL STYLING */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #f5faf5;
+    color: #263b2b;
+    line-height: 1.6;
+}
+
+/* NAVIGATION */
+
+header {
+    background: #176b3a;
+    color: white;
+    padding: 18px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 27px;
+    font-weight: bold;
+}
+
+nav {
+    display: flex;
+    gap: 22px;
+    flex-wrap: wrap;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #b9f6ca;
+}
+
+/* HERO SECTION */
+
+.hero {
+    min-height: 520px;
+    padding: 80px 8%;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(120deg, #d9f3df, #f5faf5);
+}
+
+.hero-content {
+    max-width: 750px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    color: #176b3a;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 19px;
+    line-height: 1.8;
+    margin-bottom: 28px;
+    color: #4d6252;
+}
+
+.btn {
+    display: inline-block;
+    padding: 13px 25px;
+    background: #218c45;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    margin: 5px;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #125d30;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: white;
+    color: #218c45;
+    border: 2px solid #218c45;
+}
+
+.btn-secondary:hover {
+    color: white;
+}
+
+/* COMMON SECTION */
+
+section {
+    padding: 70px 8%;
+    text-align: center;
+}
+
+section h2 {
+    font-size: 32px;
+    color: #176b3a;
+    margin-bottom: 20px;
+}
+
+.section-description {
+    max-width: 750px;
+    margin: 0 auto 35px;
+    line-height: 1.8;
+    color: #56645a;
+}
+
+/* ABOUT SECTION */
+
+#about {
+    background: white;
+    padding: 75px 8%;
+}
+
+.about-intro {
+    max-width: 900px;
+    margin: 0 auto 45px;
+    line-height: 1.9;
+    color: #56645a;
+    font-size: 17px;
+    text-align: justify;
+}
+
+.about-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin: 35px 0 50px;
+}
+
+.about-card {
+    background: #f0f8f1;
+    padding: 30px 23px;
+    border-radius: 12px;
+    text-align: left;
+    border-bottom: 4px solid #218c45;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.about-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.about-card .icon {
+    font-size: 38px;
+    margin-bottom: 15px;
+}
+
+.about-card h3 {
+    color: #176b3a;
+    margin-bottom: 12px;
+    font-size: 21px;
+}
+
+.about-card p {
+    color: #56645a;
+    line-height: 1.8;
+    font-size: 15px;
+}
+
+.about-objectives {
+    background: #e5f4e8;
+    padding: 35px;
+    border-radius: 12px;
+    text-align: left;
+    margin-top: 35px;
+}
+
+.about-objectives h3 {
+    color: #176b3a;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.about-objectives ul {
+    list-style: none;
+}
+
+.about-objectives li {
+    padding: 10px 0;
+    color: #435447;
+    line-height: 1.6;
+}
+
+.about-objectives li::before {
+    content: "✓ ";
+    color: #218c45;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.about-process {
+    margin-top: 55px;
+}
+
+.about-process h3 {
+    color: #176b3a;
+    font-size: 25px;
+    margin-bottom: 25px;
+}
+
+.process-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+.process-item {
+    padding: 25px 18px;
+    background: #f6faf6;
+    border-radius: 10px;
+}
+
+.process-item span {
+    font-size: 32px;
+}
+
+.process-item h4 {
+    color: #218c45;
+    margin: 12px 0;
+}
+
+.process-item p {
+    color: #56645a;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+/* FEATURES SECTION */
+
+#features {
+    background: #f5faf5;
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 22px;
+    margin-top: 30px;
+}
+
+.feature-card {
+    background: white;
+    padding: 30px 20px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+    transition: 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-6px);
+}
+
+.feature-card .emoji {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.feature-card h3 {
+    color: #218c45;
+    margin-bottom: 12px;
+}
+
+.feature-card p {
+    line-height: 1.7;
+    color: #56645a;
+}
+
+/* ENVIRONMENTAL IMPACT SECTION */
+
+#impact {
+    background: #e5f4e8;
+}
+
+.impact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 22px;
+    margin-top: 35px;
+}
+
+.impact-card {
+    background: white;
+    padding: 28px 15px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+}
+
+.impact-card .impact-icon {
+    font-size: 36px;
+}
+
+.impact-card h3 {
+    font-size: 22px;
+    color: #218c45;
+    margin: 12px 0;
+}
+
+.impact-card p {
+    color: #56645a;
+    font-size: 14px;
+}
+
+/* JOIN SECTION */
+
+.join-section {
+    background: #176b3a;
+    color: white;
+}
+
+.join-section h2 {
+    color: white;
+}
+
+.join-section p {
+    color: #e5f4e8;
+}
+
+.join-section .btn {
+    background: white;
+    color: #176b3a;
+}
+
+/* FOOTER */
+
+footer {
+    background: #123f26;
+    color: white;
+    text-align: center;
+    padding: 30px 15px;
+    line-height: 1.9;
+}
+
+footer a {
+    color: #b9f6ca;
+    text-decoration: none;
+    margin: 0 8px;
+}
+
+/* RESPONSIVE DESIGN */
+
+@media (max-width: 650px) {
+
+    header {
+        justify-content: center;
+    }
+
+    nav {
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .hero {
+        padding: 60px 7%;
+    }
+
+    .hero h1 {
+        font-size: 35px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    section {
+        padding: 50px 6%;
+    }
+
+    .about-intro {
+        text-align: left;
+    }
+
+    .about-objectives {
+        padding: 25px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+
+<header>
+
+    <div class="logo">🌱 EcoTrack</div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="#about">About</a>
+        <a href="#features">Features</a>
+        <a href="#impact">Impact</a>
+        <a href="register.html">Register</a>
+        <a href="login.html">Login</a>
+    </nav>
+
+</header>
+
+
+<!-- HERO SECTION -->
+
+<div class="hero">
+
+    <div class="hero-content">
+
+        <h1>Track Your Impact. Protect Our Planet.</h1>
+
+        <p>
+            Welcome to EcoTrack! Monitor your environmental
+            footprint, develop eco-friendly habits and take
+            small steps towards a greener future.
+
+            Together, we can make our planet cleaner,
+            healthier and more sustainable.
+        </p>
+
+        <a href="register.html" class="btn">Get Started</a>
+
+        <a href="login.html" class="btn btn-secondary">Login</a>
+
+    </div>
+
+</div>
+
+
+<!-- ABOUT SECTION -->
+
+<section id="about">
+
+    <h2>About EcoTrack</h2>
+
+    <p class="about-intro">
+
+        EcoTrack is a smart environmental sustainability
+        tracking platform developed to encourage individuals
+        to adopt eco-friendly habits and make responsible
+        environmental decisions.
+
+        In today's world, environmental problems such as
+        climate change, water scarcity, air pollution,
+        excessive energy consumption and increasing waste
+        have become major challenges.
+
+        Many of these problems are connected to our everyday
+        activities. EcoTrack helps users understand how their
+        daily choices affect the environment and motivates
+        them to make positive changes.
+
+        Through simple tracking tools, personalized progress
+        monitoring and environmental challenges, EcoTrack
+        aims to make sustainable living easier, smarter
+        and more meaningful.
+
+    </p>
+
+
+    <!-- VISION, MISSION AND PURPOSE -->
+
+    <div class="about-cards">
+
+        <div class="about-card">
+
+            <div class="icon">🌍</div>
+
+            <h3>Our Vision</h3>
+
+            <p>
+                To create a greener and healthier planet where
+                people understand their environmental
+                responsibilities and actively contribute
+                towards a sustainable future.
+            </p>
+
+        </div>
+
+
+        <div class="about-card">
+
+            <div class="icon">🎯</div>
+
+            <h3>Our Mission</h3>
+
+            <p>
+                To provide a simple and accessible platform
+                that helps people monitor their environmental
+                impact, reduce resource wastage and develop
+                responsible daily habits.
+            </p>
+
+        </div>
+
+
+        <div class="about-card">
+
+            <div class="icon">🌱</div>
+
+            <h3>Our Purpose</h3>
+
+            <p>
+                To transform environmental awareness into
+                practical action by encouraging users to save
+                water, conserve electricity, reduce carbon
+                emissions and manage waste responsibly.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- WHY CHOOSE ECOTRACK -->
+
+    <h2>Why Choose EcoTrack?</h2>
+
+    <p class="about-intro">
+
+        EcoTrack brings different sustainability activities
+        together in one platform. Instead of tracking
+        environmental activities separately, users can
+        monitor multiple aspects of their lifestyle in one
+        convenient place.
+
+    </p>
+
+
+    <div class="about-cards">
+
+        <div class="about-card">
+
+            <div class="icon">📊</div>
+
+            <h3>Easy Monitoring</h3>
+
+            <p>
+                Record daily environmental activities and
+                understand your resource consumption.
+            </p>
+
+        </div>
+
+
+        <div class="about-card">
+
+            <div class="icon">💡</div>
+
+            <h3>Better Awareness</h3>
+
+            <p>
+                Learn how everyday activities influence the
+                environment and discover opportunities to
+                improve your habits.
+            </p>
+
+        </div>
+
+
+        <div class="about-card">
+
+            <div class="icon">🏆</div>
+
+            <h3>Motivation</h3>
+
+            <p>
+                Participate in eco-friendly challenges and
+                stay motivated to achieve sustainability goals.
+            </p>
+
+        </div>
+
+
+        <div class="about-card">
+
+            <div class="icon">📈</div>
+
+            <h3>Progress Tracking</h3>
+
+            <p>
+                Review your recorded activities and observe
+                your sustainability improvements over time.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- OBJECTIVES -->
+
+    <div class="about-objectives">
+
+        <h3>Our Objectives</h3>
+
+        <ul>
+
+            <li>
+                Encourage users to understand their carbon footprint.
+            </li>
+
+            <li>
+                Promote responsible water consumption.
+            </li>
+
+            <li>
+                Reduce unnecessary electricity usage.
+            </li>
+
+            <li>
+                Encourage waste segregation and recycling.
+            </li>
+
+            <li>
+                Develop sustainable habits in everyday life.
+            </li>
+
+            <li>
+                Increase awareness about environmental protection.
+            </li>
+
+            <li>
+                Motivate individuals to participate in eco-friendly activities.
+            </li>
+
+            <li>
+                Help users monitor and improve their environmental progress.
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <!-- HOW ECOTRACK WORKS -->
+
+    <div class="about-process">
+
+        <h3>How EcoTrack Works</h3>
+
+        <div class="process-grid">
+
+            <div class="process-item">
+
+                <span>👤</span>
+
+                <h4>1. Register</h4>
+
+                <p>
+                    Create your personal EcoTrack account
+                    and get started.
+                </p>
+
+            </div>
+
+
+            <div class="process-item">
+
+                <span>📝</span>
+
+                <h4>2. Track Activities</h4>
+
+                <p>
+                    Enter information about your daily water,
+                    energy, transport and waste activities.
+                </p>
+
+            </div>
+
+
+            <div class="process-item">
+
+                <span>📊</span>
+
+                <h4>3. Monitor Impact</h4>
+
+                <p>
+                    Review your recorded environmental
+                    activities and progress.
+                </p>
+
+            </div>
+
+
+            <div class="process-item">
+
+                <span>🌿</span>
+
+                <h4>4. Improve Habits</h4>
+
+                <p>
+                    Follow eco-friendly suggestions and take
+                    steps towards a greener lifestyle.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FEATURES SECTION -->
+
+<section id="features">
+
+    <h2>Our Features</h2>
+
+    <p class="section-description">
+
+        Discover the tools that help you monitor your
+        environmental activities and develop sustainable habits.
+
+    </p>
+
+
+    <div class="features">
+
+        <div class="feature-card">
+
+            <div class="emoji">🌍</div>
+
+            <h3>Carbon Footprint</h3>
+
+            <p>
+                Understand and monitor your carbon emissions
+                from everyday activities.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="emoji">💧</div>
+
+            <h3>Water Tracking</h3>
+
+            <p>
+                Monitor water usage and reduce unnecessary
+                water wastage.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="emoji">⚡</div>
+
+            <h3>Energy Tracking</h3>
+
+            <p>
+                Track electricity consumption and develop
+                energy-saving habits.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="emoji">♻️</div>
+
+            <h3>Waste Management</h3>
+
+            <p>
+                Encourage recycling, waste segregation
+                and responsible disposal.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="emoji">🏆</div>
+
+            <h3>Eco Challenges</h3>
+
+            <p>
+                Participate in activities that help protect
+                the environment.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="emoji">📊</div>
+
+            <h3>Progress Reports</h3>
+
+            <p>
+                Review your sustainability activities
+                and monitor improvements.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ENVIRONMENTAL IMPACT SECTION -->
+
+<section id="impact">
+
+    <h2>Small Actions. Big Impact.</h2>
+
+    <p class="section-description">
+
+        Sustainable living begins with simple everyday
+        decisions. Every individual can contribute
+        towards protecting the environment.
+
+    </p>
+
+
+    <div class="impact-grid">
+
+        <div class="impact-card">
+
+            <div class="impact-icon">💧</div>
+
+            <h3>Save Water</h3>
+
+            <p>
+                Turn off taps when not in use and avoid
+                unnecessary water consumption.
+            </p>
+
+        </div>
+
+
+        <div class="impact-card">
+
+            <div class="impact-icon">⚡</div>
+
+            <h3>Save Energy</h3>
+
+            <p>
+                Switch off lights and appliances when
+                they are not required.
+            </p>
+
+        </div>
+
+
+        <div class="impact-card">
+
+            <div class="impact-icon">🚲</div>
+
+            <h3>Go Green</h3>
+
+            <p>
+                Walk, cycle or use public transport
+                whenever possible.
+            </p>
+
+        </div>
+
+
+        <div class="impact-card">
+
+            <div class="impact-icon">♻️</div>
+
+            <h3>Recycle More</h3>
+
+            <p>
+                Separate recyclable materials and
+                reduce single-use products.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- JOIN SECTION -->
+
+<section class="join-section">
+
+    <h2>Start Your Green Journey Today!</h2>
+
+    <p class="section-description">
+
+        Every small action makes a difference.
+        Join EcoTrack and make sustainable living
+        a part of your everyday life.
+
+    </p>
+
+    <a href="register.html" class="btn">
+        Create Your Account
+    </a>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <p>
+        🌱 EcoTrack - Smart Environmental Sustainability Tracker
+    </p>
+
+    <p>
+        Protect Nature. Save Resources. Build a Better Future.
+    </p>
+
+    <p>
+        <a href="index.html">Home</a> |
+        <a href="#about">About</a> |
+        <a href="#features">Features</a> |
+        <a href="register.html">Register</a> |
+        <a href="login.html">Login</a>
+    </p>
+
+    <p>
+        &copy; <span id="year"></span>
+        EcoTrack. All rights reserved.
+    </p>
+
+</footer>
+
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+    // Automatically update copyright year
+
+    document.getElementById("year").textContent =
+        new Date().getFullYear();
+
+    // Smooth scrolling for navigation links
+
+    document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+
+        link.addEventListener("click", function(event) {
+
+            const target = document.querySelector(
+                this.getAttribute("href")
+            );
+
+            if (target) {
+                event.preventDefault();
+
+                target.scrollIntoView({
+                    behavior: "smooth"
+                });
+            }
+
+        });
+
+    });
+
+</script>
+
+</body>
+</html>
